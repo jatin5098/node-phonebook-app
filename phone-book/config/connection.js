@@ -1,11 +1,18 @@
 var mongoose = require('mongoose');
-mongoose.connect('localhost:27017/test');
+mongoose.connect('localhost:27017/phonebook');
 var Schema = mongoose.Schema;
 
-var collectionSchema = new Schema({
-    studName: { type: String, required: true },
-    studRoll: String,
-    perAddr: String
-}, { collection: 'user-data' });
+var contactSchema = new Schema({
+    name: { type: String, required: true },
+    company: String,
+    phone: [],
+    email: [],
+    group: String,
+    url: []
+}, { collection: 'contacts' });
 
-var Collection = mongoose.model('Collection', collectionSchema);
+var contactCollection = mongoose.model('contact', contactSchema);
+
+var contactModel = function() {
+
+}
