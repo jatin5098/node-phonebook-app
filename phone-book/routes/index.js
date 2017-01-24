@@ -1,46 +1,58 @@
 var express = require('express');
 var router = express.Router();
 
-// Module imported
-// var connection = require('../config/connection');
 var mongoose = require('mongoose');
 mongoose.connect('localhost:27017/phonebook');
 var Schema = mongoose.Schema;
 
-var contactSchema = new Schema({
-    name: { type: String, required: true },
-    company: String,
-    phone: [],
-    email: [],
-    group: String,
-    url: []
-}, { collection: 'contacts' });
-
-var contactCollection = mongoose.model('contact', contactSchema);
-
+// Module imported
+var contactSchema = require('../config/connection').contactSchema(Schema);
+var contactModel = mongoose.model('contact', contactSchema);;
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    var contact = {
-        name: 'Jatin Kumar',
-        company: 'Happiest Minds',
-        phone: [
-            { type: 'personal', value: '9776325098' },
-            { type: 'home', value: '9776325098' }
-        ],
-        email: [
-            { type: 'home', value: 'jat@ymail.com' },
-            { type: 'business', value: 'jat@hm.com' }
-        ],
-        group: 'home',
-        url: [
-            { type: 'fb', value: 'www.fb.com/jatin' }
-        ]
-    };
-    console.log("Data submitted" + contact.name);
-    var data = new contactCollection(contact);
-    data.save();
-    res.render('index', { title: 'Phonebook App' });
+    res.render('contact-entry', { title: 'Phonebook App' });
 });
 
+router.post('/contact/save', function(req, res, next) {
+    var name = req.body.name;
+    var company = req.body.company;
+
+    var phone = [];
+    console.log(phone);
+    req.body.phoneType.forEach(function(e, i, a) {
+        var phoneDetails = {
+            type: req.body.phoneType[i],
+            value: req.body.phonenNumber[i]
+        };
+        console.log(phoneDetails);
+        phone.push(phoneDetails);
+    });
+    console.log(phone);
+    return;
+
+    var email = [];
+    req.body.emailType.forEach(function(e, i, a) {
+        var emailDetails = {
+            type: req.body.emailType[i],
+            value: req.body.emailAddress[i]
+        };
+        email.push(emailDetails);
+    });
+
+    var group = req.body.group;
+
+
+    var contact = {
+        name: name,
+        company: company,
+        phone: phone,
+        email: email,
+        group: group
+    };
+    console.log("data submitted" + contact);
+    // var data = new contactModel(contact);
+    // data.save();
+    res.redirect('/');
+});
 module.exports = router;
