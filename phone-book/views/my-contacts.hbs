@@ -1,0 +1,30 @@
+<div class="contacts-list">
+    {{# if contacts.length}}
+        {{# each contacts}}
+            <div>
+                <a href="/contact/edit/{{this._id}}">Edit</a>
+            </div>            
+            <div class="my-contact">
+                <div class="contact-name">{{this.name}}</div>
+                <div class="contact-company">{{this.company}}</div>
+                {{# each this.phone}}
+                    <div class="contact-number">{{this.type}}</div>
+                    <div class="contact-number">{{this.value}}</div>
+                {{/each}}
+                {{# each this.email}}
+                    <div class="contact-email">{{this.type}}</div>
+                    <div class="contact-email">{{this.value}}</div>
+                {{/each}}
+                <div class="contact-group">{{this.group}}</div>
+                {{# each this.url}}
+                    <div class="contact-url">{{this.type}}</div>
+                    <div class="contact-url">{{this.value}}</div>
+                {{/each}}                                
+            </div>
+        {{/each}}
+    {{ else }}
+    <div>
+        <p>Contact List is empty.</p>
+    </div>
+    {{/if}}
+</div>

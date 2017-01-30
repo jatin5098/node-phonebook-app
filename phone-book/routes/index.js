@@ -14,45 +14,89 @@ router.get('/', function(req, res, next) {
     res.render('contact-entry', { title: 'Phonebook App' });
 });
 
+// Edit contact
+router.get('/contact/edit/:id', function(req, res, next) {
+    console.log(req.params.id);
+    res.redirect('/');
+});
+
+// Get all contacts
+router.get('/contact/all', function(req, res, next) {
+    var contacts = contactModel.find();
+    contacts.then(function(record) {
+        res.render('my-contacts', { contacts: record });
+    });
+});
+
+// Save new contact
 router.post('/contact/save', function(req, res, next) {
     var name = req.body.name;
     var company = req.body.company;
-
     var phone = [];
-    console.log(phone);
-    req.body.phoneType.forEach(function(e, i, a) {
+    if (typeof req.body.phoneType === 'object' && req.body.phoneType.length > 1) {
+        req.body.phoneType.forEach(function(e, i, a) {
+            var phoneDetails = {
+                type: req.body.phoneType[i],
+                value: req.body.phoneNumber[i]
+            };
+            phone.push(phoneDetails);
+        });
+    } else {
         var phoneDetails = {
-            type: req.body.phoneType[i],
-            value: req.body.phonenNumber[i]
+            type: req.body.phoneType,
+            value: req.body.phoneNumber
         };
-        console.log(phoneDetails);
         phone.push(phoneDetails);
-    });
-    console.log(phone);
-    return;
+    }
 
     var email = [];
-    req.body.emailType.forEach(function(e, i, a) {
+
+    if (typeof req.body.emailType === 'object' && req.body.emailType.length > 1) {
+        req.body.emailType.forEach(function(e, i, a) {
+            var emailDetails = {
+                type: req.body.emailType[i],
+                value: req.body.emailAddress[i]
+            };
+            email.push(emailDetails);
+        });
+    } else {
         var emailDetails = {
-            type: req.body.emailType[i],
-            value: req.body.emailAddress[i]
+            type: req.body.emailType,
+            value: req.body.emailAddress
         };
         email.push(emailDetails);
-    });
+    }
 
     var group = req.body.group;
 
+    var url = [];
+    if (typeof req.body.urlType === 'object' && req.body.urlType.length > 1) {
+        req.body.urlType.forEach(function(e, i, a) {
+            var urlDetails = {
+                type: req.body.urlType[i],
+                value: req.body.urlAddress[i]
+            };
+            url.push(urlDetails);
+        });
+    } else {
+        var urlDetails = {
+            type: req.body.urlType,
+            value: req.body.urlAddress
+        };
+        url.push(urlDetails);
+    }
 
     var contact = {
         name: name,
         company: company,
         phone: phone,
         email: email,
-        group: group
+        group: group,
+        url: url
     };
     console.log("data submitted" + contact);
-    // var data = new contactModel(contact);
-    // data.save();
+    var data = new contactModel(contact);
+    data.save();
     res.redirect('/');
 });
 module.exports = router;
