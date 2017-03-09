@@ -1,0 +1,48 @@
+<div class="contacts-list">
+    {{# if contacts.length}} {{# each contacts}}
+    <form method="post" action="/contact/update">
+        <div>
+            <input type="hidden" name="contactId" value="{{ this._id }}" />
+            <input type="submit" name="updateDetails" value="Update" />
+        </div>
+        <div class="my-contact">
+            <div class="contact-name">
+                <input type="text" name="name" value="{{this.name}}" />
+            </div>
+            <div class="contact-company">
+                <input type="text" name="company" value="{{this.company}}" />
+            </div>
+            {{# each this.phone}}
+            <div class="contact-number">
+                <input type="text" name="phoneType" value="{{this.type}}" />
+            </div>
+            <div class="contact-number">
+                <input type="text" name="phoneNumber" value="{{this.value}}" />
+            </div>
+            {{/each}} {{# each this.email}}
+            <div class="contact-email">
+                <input type="text" name="emailType" value="{{this.type}}" />
+            </div>
+            <div class="contact-email">
+                <input type="text" name="emailAddress" value="{{this.value}}" />
+            </div>
+            {{/each}}
+            <div class="contact-group">
+                <input type="text" name="group" value="{{this.group}}" />
+            </div>
+            {{# each this.url}}
+            <div class="contact-url">
+                <input type="text" name="urlType" value="{{this.type}}" />
+            </div>
+            <div class="contact-url">
+                <input type="text" name="urlAddress" value="{{this.value}}" />
+            </div>
+            {{/each}}
+        </div>
+    </form>
+    {{/each}} {{ else }}
+    <div>
+        <p>Contact List is empty.</p>
+    </div>
+    {{/if}}
+</div>
