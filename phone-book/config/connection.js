@@ -5,7 +5,8 @@ var contactSchema = function(Schema) {
         phone: [],
         email: [],
         group: String,
-        url: []
+        url: [],
+        pic: String
     }, { collection: 'contacts' });
 };
 var contact = {
@@ -22,7 +23,8 @@ var contact = {
     group: 'home',
     url: [
         { type: 'fb', value: 'www.fb.com/jatin' }
-    ]
+    ],
+    pic: 'abcfggh.jpg'
 };
 module.exports = {
     contactSchema: contactSchema

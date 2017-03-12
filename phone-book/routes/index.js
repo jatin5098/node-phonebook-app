@@ -1,5 +1,16 @@
 var express = require('express');
 var router = express.Router();
+var multer = require('multer');
+var storage = multer.diskStorage({
+    destination: function(req, file, cb) {
+        cb(null, 'public/uploads/dp')
+    },
+    filename: function(req, file, cb) {
+        cb(null, file.fieldname + '-' + Date.now())
+    }
+});
+var upload = multer({ storage: storage });
+//var upload = multer({ dest: 'public/uploads/dp/' });
 
 var mongoose = require('mongoose');
 mongoose.connect('localhost:27017/phonebook');
@@ -127,7 +138,7 @@ router.get('/contact/all', function(req, res, next) {
 });
 
 // Save new contact
-router.post('/contact/save', function(req, res, next) {
+router.post('/contact/save', upload.any(), function(req, res, next) {
     var name = req.body.name;
     var company = req.body.company;
     var phone = [];
@@ -184,13 +195,17 @@ router.post('/contact/save', function(req, res, next) {
         url.push(urlDetails);
     }
 
+    var pic = req.files[0].filename;
+    console.log(pic);
     var contact = {
         name: name,
         company: company,
         phone: phone,
         email: email,
         group: group,
-        url: url
+        url: url,
+        pic: pic
+
     };
     console.log("data submitted" + contact);
     var data = new contactModel(contact);

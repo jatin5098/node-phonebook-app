@@ -1,5 +1,5 @@
 <div>
-    <form method="post" action="/contact/save">
+    <form method="post" action="/contact/save" enctype="multipart/form-data">
     <input type="text" type="text" name="name" placeholder="Name"/>
     <input type="text" name="company" placeholder="Company"/>
     <input type="text" name="phoneType" placeholder="Phone Type"/>
@@ -11,6 +11,7 @@
     <input type="text" name="group" placeholder="Group"/>
     <input type="text" name="urlType" placeholder="Url Type"/>
     <input type="text" name="urlAddress" placeholder="Url Address"/>
+    <input type="file" name="pic"/>
     <input type="submit" value="Add Contact"/>
     </form>
 </div>

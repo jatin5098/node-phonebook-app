@@ -8,6 +8,9 @@
         </div>
         <div class="my-contact">
             <div class="contact-name">{{this.name}}</div>
+            <div class="contact-pic">
+                <img src="{{__dirname}}/uploads/dp/{{this.pic}}"/>
+            </div>
             <div class="contact-company">{{this.company}}</div>
             {{# each this.phone}}
             <div class="contact-number">{{this.type}}</div>
