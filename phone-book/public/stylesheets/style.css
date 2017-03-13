@@ -1,8 +1,12 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+.container-fluid {
+    min-width: 600px;
+    max-width: 600px;
 }
 
-a {
-  color: #00B7FF;
+.top-15 {
+    margin-top: 15px;
+}
+
+.contact-pic img {
+    height: 93px;
 }

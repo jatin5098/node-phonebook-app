@@ -1,49 +1,89 @@
-<div class="contacts-list">
-    {{# if contacts.length}} {{# each contacts}}
-    <form method="post" action="/contact/update">
-        <div>
-            <input type="hidden" name="contactId" value="{{ this._id }}" />
-            <input type="submit" name="updateDetails" value="Update" />
-            <input type="submit" name="updateDetails" value="Delete" />
+<div class="container-fluid contacts-list">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <h2 class="text-center">Edit Contact</h2>
         </div>
-        <div class="my-contact">
-            <div class="contact-name">
-                <input type="text" name="name" value="{{this.name}}" />
-            </div>
-            <div class="contact-company">
-                <input type="text" name="company" value="{{this.company}}" />
-            </div>
-            {{# each this.phone}}
-            <div class="contact-number">
-                <input type="text" name="phoneType" value="{{this.type}}" />
-            </div>
-            <div class="contact-number">
-                <input type="text" name="phoneNumber" value="{{this.value}}" />
-            </div>
-            {{/each}} {{# each this.email}}
-            <div class="contact-email">
-                <input type="text" name="emailType" value="{{this.type}}" />
-            </div>
-            <div class="contact-email">
-                <input type="text" name="emailAddress" value="{{this.value}}" />
-            </div>
-            {{/each}}
-            <div class="contact-group">
-                <input type="text" name="group" value="{{this.group}}" />
-            </div>
-            {{# each this.url}}
-            <div class="contact-url">
-                <input type="text" name="urlType" value="{{this.type}}" />
-            </div>
-            <div class="contact-url">
-                <input type="text" name="urlAddress" value="{{this.value}}" />
-            </div>
-            {{/each}}
-        </div>
-    </form>
-    {{/each}} {{ else }}
-    <div>
-        <p>Contact List is empty.</p>
     </div>
-    {{/if}}
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            {{# if contacts.length}} {{# each contacts}}
+            <form method="post" action="/contact/update">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12">
+                        <input type="hidden" name="contactId" value="{{ this._id }}" />
+                        <div class="pull-right">
+                            <input type="submit" class="btn btn-success" name="updateDetails" value="Update" />
+                            <input type="submit" class="btn btn-danger" name="updateDetails" value="Delete" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row my-contact top-15">
+                    <div class="col-xs-12 col-sm-12 col-md-12">
+                        <div class="row">
+                            <div class="col-xs-8 col-sm-8 col-md-8">
+                                <div class="form-group row contact-name">
+                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                        <input type="text" class="form-control" name="name" value="{{this.name}}" />
+                                    </div>
+
+                                </div>
+                                <div class="form-group row contact-company">
+                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                        <input type="text" class="form-control" name="company" value="{{this.company}}" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-4 col-sm-4 col-md-4">
+                                <div class="contact-pic">
+                                    <img src="{{__dirname}}/uploads/dp/{{this.pic}}" class="img img-responsive img-thumbnail" />
+                                </div>
+                            </div>
+                        </div>
+
+                        {{# each this.phone}}
+                        <div class="form-group row contact-number">
+                            <div class="col-xs-4 col-sm-4 col-md-4">
+                                <input type="text" class="form-control" name="phoneType" value="{{this.type}}" />
+                            </div>
+                            <div class="col-xs-8 col-sm-8 col-md-8">
+                                <input type="text" class="form-control" name="phoneNumber" value="{{this.value}}" />
+                            </div>
+                        </div>
+                        {{/each}} {{# each this.email}}
+                        <div class="form-group row contact-email">
+                            <div class="col-xs-4 col-sm-4 col-md-4">
+                                <input type="text" class="form-control" name="emailType" value="{{this.type}}" />
+                            </div>
+                            <div class="col-xs-8 col-sm-8 col-md-8">
+                                <input type="text" class="form-control" name="emailAddress" value="{{this.value}}" />
+                            </div>
+                        </div>
+                        {{/each}}
+                        <div class="form-group row contact-group">
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <input type="text" class="form-control" name="group" value="{{this.group}}" />
+                            </div>
+                        </div>
+                        {{# each this.url}}
+
+                        <div class="form-group row contact-url">
+                            <div class="col-xs-4 col-sm-4 col-md-4">
+                                <input type="text" class="form-control" name="urlType" value="{{this.type}}" />
+                            </div>
+                            <div class="col-xs-8 col-sm-8 col-md-8">
+                                <input type="text" class="form-control" name="urlAddress" value="{{this.value}}" />
+                            </div>
+                        </div>
+                        {{/each}}
+                    </div>
+                </div>
+            </form>
+            {{/each}} {{ else }}
+            <div>
+                <p>Contact List is empty.</p>
+            </div>
+            {{/if}}
+        </div>
+    </div>
 </div>
