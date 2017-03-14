@@ -44,6 +44,8 @@ router.get('/contact/edit', function(req, res, next) {
 router.post('/contact/edit', function(req, res, next) {
     var contactId = req.body.contactId;
     var data = contactModel.findById(contactId);
+    // var data = contactModel
+    //     .find({ $or: [{ name: { '$regex': 'Su', '$options': 'i' } }, { 'phone.value': { '$regex': 'Su', '$options': 'i' } }] });
     data.then(function(record) {
         console.log(record);
         res.render('edit-contacts', { contacts: [record] });
